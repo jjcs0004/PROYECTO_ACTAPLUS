@@ -9,6 +9,7 @@ package com.example.juanjosecarosierra.proyecto_actaplus;
 public class Anio {
 
     int juanjo=0;
+    int jc=1;
 
     private int Id_anios;
     private String Anio;
