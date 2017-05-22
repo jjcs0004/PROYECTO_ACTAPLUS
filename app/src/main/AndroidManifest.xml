@@ -11,13 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.PortadaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.CargaAniosActivity"/>
+        <activity android:name=".Activity.LoginActivity"/>
+        <activity android:name=".Activity.JornadaActivity"/>
+        <activity android:name=".Activity.MenuArbitroActivity"/>
+        <activity android:name=".Activity.DatosPersonalesActivity"/>
+        <activity android:name=".Activity.PartidosArbitroActivity"/>
+        <activity android:name=".Activity.JornadasAnioActivity"/>
     </application>
 
 </manifest>

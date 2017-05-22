@@ -1,4 +1,4 @@
-package com.example.juanjosecarosierra.proyecto_actaplus;
+package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
 
 public class Jornada {
     private int id_jornadas;

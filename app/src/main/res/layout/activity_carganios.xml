@@ -4,36 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.juanjosecarosierra.proyecto_actaplus.MainActivity">
+    android:padding="16dp"
+    tools:context="com.example.juanjosecarosierra.proyecto_actaplus.Activity.CargaAniosActivity">
 
     <LinearLayout
-        android:layout_width="374dp"
-        android:layout_height="499dp"
+        android:layout_width="336dp"
+        android:layout_height="463dp"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="4dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <Spinner android:id="@+id/spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             xmlns:android="http://schemas.android.com/apk/res/android" />
 
-        <Spinner android:id="@+id/spinner2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
-
-        <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <ListView
-            android:id="@+id/lista"
+            android:id="@+id/ligas"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
 
     </LinearLayout>
 
