@@ -1,4 +1,4 @@
-package com.example.juanjosecarosierra.proyecto_actaplus;
+package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
 
 /**
  * Created by juanjosecarosierra on 25/4/17.
