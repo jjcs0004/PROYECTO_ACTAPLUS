@@ -52,13 +52,13 @@ public class Api {
 
     public void setArbitro(Arbitro arbitro) {this.arbitro = arbitro;}
 
-    private Jornada jornada;
+    private JornadasLiga jornada;
 
-    public Jornada getJornada() {
+    public JornadasLiga getJornada() {
         return jornada;
     }
 
-    public void setJornada(Jornada jornada) {this.jornada = jornada;}
+    public void setJornada(JornadasLiga jornada) {this.jornada = jornada;}
 
 
 
@@ -114,38 +114,7 @@ public class Api {
         void onError(String error);
     }
 
-    public void getJornadas(final OnResultListener<List<Jornada>> listener) {
-        JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com/SLIM/public/jornadas",new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-                final Gson gson = new Gson();
-                List<Jornada> jornadas = new ArrayList<>();
-
-                for ( int i = 0; i < response.length(); i++ ) {
-                    try {
-                        JSONObject jornadaJson = response.getJSONObject(i);
-                        Jornada jornada = gson.fromJson(jornadaJson.toString(), Jornada.class);
-                        jornadas.add(jornada);
-                    }
-                    catch ( JSONException ex ) {
-                        listener.onError(ex.getMessage());
-                    }
-                }
-
-                listener.onSuccess(jornadas);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listener.onError(error.getMessage());
-            }
-        });
-
-        addToRequestQueue(request);
-    }
-
-
+    
     // ------------------------------------------------------------------------------------- //
 
     public void getLigas(final OnResultListener<List<Liga>> listener) {
@@ -279,20 +248,19 @@ public class Api {
         addToRequestQueue(request);
     }
 
-    // ------------------------------------------------------------------------------------- //
 
-    public void getJornadaLiga(final OnResultListener<List<Jornada>> listener) {
+    public void getJornadasLiga(final OnResultListener<List<JornadasLiga>> listener) {
         JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com:80/SLIM/public/jornadas/"+getLiga().getId_ligas(),new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
                 final Gson gson = new Gson();
-                List<Jornada> jornadas = new ArrayList<>();
+                List<JornadasLiga> jornadas = new ArrayList<>();
 
                 for ( int i = 0; i < response.length(); i++ ) {
                     try {
-                        JSONObject jornadasLigaJson = response.getJSONObject(i);
-                        Jornada jornada = gson.fromJson(jornadasLigaJson.toString(), Jornada.class);
+                        JSONObject arbitrosJSON = response.getJSONObject(i);
+                        JornadasLiga jornada = gson.fromJson(arbitrosJSON.toString(), JornadasLiga.class);
                         jornadas.add(jornada);
                     }
                     catch ( JSONException ex ) {
@@ -311,6 +279,10 @@ public class Api {
 
         addToRequestQueue(request);
     }
+
+    // ------------------------------------------------------------------------------------- //
+
+
 
     // ------------------------------------------------------------------------------------- //
 

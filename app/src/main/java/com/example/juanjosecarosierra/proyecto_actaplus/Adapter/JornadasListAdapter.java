@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Jornada;
+import com.example.juanjosecarosierra.proyecto_actaplus.Clases.JornadasLiga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
 
 import java.util.List;
 
-public class JornadasListAdapter extends ArrayAdapter<Jornada> {
+public class JornadasListAdapter extends ArrayAdapter<JornadasLiga> {
 
     private static class ViewHolder {
         private TextView text;
     }
 
-    public JornadasListAdapter(Context context, List<Jornada> items) {
+    public JornadasListAdapter(Context context, List<JornadasLiga> items) {
         super(context, R.layout.jornada_item, items);
     }
 
@@ -40,7 +40,7 @@ public class JornadasListAdapter extends ArrayAdapter<Jornada> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Jornada item = getItem(position);
+        JornadasLiga item = getItem(position);
         if (item!= null) {
             // My layout has only one TextView
             // do whatever you want with your string and long

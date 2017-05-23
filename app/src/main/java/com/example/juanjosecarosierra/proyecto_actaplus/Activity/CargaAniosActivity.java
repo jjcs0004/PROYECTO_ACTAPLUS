@@ -4,6 +4,7 @@ package com.example.juanjosecarosierra.proyecto_actaplus.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +17,7 @@ import com.example.juanjosecarosierra.proyecto_actaplus.Adapter.LigasListAdapter
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Anio;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Api;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Arbitro;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Jornada;
+import com.example.juanjosecarosierra.proyecto_actaplus.Clases.JornadasLiga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
@@ -29,12 +30,9 @@ public class CargaAniosActivity extends AppCompatActivity {
 
     private Spinner spProvincias, spLocalidades;
 
-    List<Jornada> jornadas;
+
     List<Liga> ligas;
     List<Anio> anios;
-    List<Partido> partidos;
-    List<Arbitro> arbitros;
-
 
     private ListView listLigas;
     private LigasListAdapter ligasAdapter;
@@ -46,17 +44,6 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         listLigas = (ListView)findViewById(R.id.ligas);
 
-
-//        text_jornada = (TextView)findViewById(R.id.jornadaText);
-//
-//        text_liga = (TextView)findViewById(R.id.ligaText);
-//
-//        text_anios = (TextView)findViewById(R.id.AnioText);
-//
-//        text_partidos = (TextView)findViewById(R.id.partidoText);
-//
-//        text_arbitros = (TextView)findViewById(R.id.arbitroText);
-
         request();
 
     }
@@ -64,19 +51,6 @@ public class CargaAniosActivity extends AppCompatActivity {
     //---------------------------------------------------------------------------------------//
 
     private void request() {
-
-        Api.getInstance(getApplicationContext()).getJornadas(new Api.OnResultListener<List<Jornada>>() {
-            @Override
-            public void onSuccess(List<Jornada> data) {
-                Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
-                jornadas = data;
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
-            }
-        });
 
         //---------------------------------------------------------------------------------------//
 
@@ -109,38 +83,6 @@ public class CargaAniosActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
             }
         });
-
-        //---------------------------------------------------------------------------------------//
-
-        Api.getInstance(getApplicationContext()).getPartidos(new Api.OnResultListener<List<Partido>>() {
-            @Override
-            public void onSuccess(List<Partido> data) {
-                Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
-                partidos = data;
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        //---------------------------------------------------------------------------------------//
-
-        Api.getInstance(getApplicationContext()).getArbitro(new Api.OnResultListener<List<Arbitro>>() {
-            @Override
-            public void onSuccess(List<Arbitro> data) {
-                Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
-                arbitros = data;
-            }
-
-            @Override
-            public void onError(String error) {
-                Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-        //---------------------------------------------------------------------------------------//
 
 
     }
@@ -184,14 +126,19 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         ligasAdapter = new LigasListAdapter(getApplicationContext(), listaLigasAnio);
         listLigas.setAdapter(ligasAdapter);
+
         listLigas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Liga liga = (Liga)parent.getItemAtPosition(position);
                 Api.getInstance(getApplicationContext()).setLiga(liga);
+
+
+
                 startActivity(new Intent(CargaAniosActivity.this, JornadaActivity.class));
             }
         });
+
     }
 
 

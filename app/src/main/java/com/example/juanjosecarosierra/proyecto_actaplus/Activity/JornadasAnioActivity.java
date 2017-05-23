@@ -16,7 +16,7 @@ import com.example.juanjosecarosierra.proyecto_actaplus.Adapter.LigasListAdapter
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Anio;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Api;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Arbitro;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Jornada;
+import com.example.juanjosecarosierra.proyecto_actaplus.Clases.JornadasLiga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class JornadasAnioActivity extends AppCompatActivity {
 
-    List<Jornada> jornadasliga;
+    List<JornadasLiga> jornadasliga;
 
     private ListView listJornadas;
     private JornadasListAdapter jornadasAdapter;
@@ -46,9 +46,9 @@ public class JornadasAnioActivity extends AppCompatActivity {
 
     private void request() {
 
-        Api.getInstance(getApplicationContext()).getJornadaLiga(new Api.OnResultListener<List<Jornada>>() {
+        Api.getInstance(getApplicationContext()).getJornadasLiga(new Api.OnResultListener<List<JornadasLiga>>() {
             @Override
-            public void onSuccess(List<Jornada> data) {
+            public void onSuccess(List<JornadasLiga> data) {
                 Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
                 jornadasliga = data;
                 cargaJornadas();
@@ -68,7 +68,7 @@ public class JornadasAnioActivity extends AppCompatActivity {
 
     private void cargaJornadas(){
 
-        List<Jornada> listasJornadasLiga = new ArrayList<>();
+        List<JornadasLiga> listasJornadasLiga = new ArrayList<>();
 
         for(int i = 0 ; i < jornadasliga.size(); i++){
 
@@ -83,7 +83,7 @@ public class JornadasAnioActivity extends AppCompatActivity {
         listJornadas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Jornada jornada = (Jornada)parent.getItemAtPosition(position);
+                JornadasLiga jornada = (JornadasLiga)parent.getItemAtPosition(position);
                 Api.getInstance(getApplicationContext()).setJornada(jornada);
                 startActivity(new Intent(JornadasAnioActivity.this, JornadaActivity.class));
             }

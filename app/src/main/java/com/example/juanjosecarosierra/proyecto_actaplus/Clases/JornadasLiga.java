@@ -1,9 +1,14 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
 
-public class Jornada {
+/**
+ * Created by juanjosecarosierra on 23/5/17.
+ */
+
+public class JornadasLiga {
     private int id_jornadas;
     private String nombre;
-    private String anio;
+    private String idanio;
+    private String idliga;
 
 
     public int getId_jornadas() {
@@ -22,13 +27,22 @@ public class Jornada {
         this.nombre = nombre;
     }
 
-    public String getAnio() {
-        return anio;
+    public String getIdAnio() {
+        return idanio;
     }
 
-    public void setAnio(String anio) {
-        this.anio = anio;
+    public void setIdAnio(String anio) {
+        this.idanio = idanio;
     }
+
+    public String getIdLiga() {
+        return idliga;
+    }
+
+    public void setIdLiga(String idliga) {
+        this.idliga = idliga;
+    }
+
+
 
 }
-
