@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
 
-public class JornadaActivity extends AppCompatActivity {
+public class JornadaActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TextView textLiga;
 
@@ -33,8 +33,8 @@ public class JornadaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jornada);
 
-        buttonJornadas = (Button)findViewById(R.id.buttonJornadas);
-        //buttonJornadas.setOnClickListener(this);
+        buttonJornadas = (Button)findViewById(R.id.buttonJornada);
+        buttonJornadas.setOnClickListener(this);
 
         request();
     }
@@ -64,11 +64,12 @@ public class JornadaActivity extends AppCompatActivity {
 
     private void fillUi() {
 
+
+        //Log.d("JORNADAAAA","" + Api.getInstance(getApplicationContext()).getJornada().getNombre());
+
         List<JornadasLiga> JornadasLiga = new ArrayList<>();
 
         for(int i = 0 ; i < jornadasliga.size(); i++){
-
-            Log.d("OJOOO 1:", ""+jornadasliga.get(i).getIdLiga());
 
                 JornadasLiga.add(jornadasliga.get(i)) ;
 
@@ -76,20 +77,15 @@ public class JornadaActivity extends AppCompatActivity {
 
         textLiga = (TextView)findViewById(R.id.jornadaLiga);
 
-
         if(jornadasliga.size() > 0) {
 
             if (JornadasLiga.size()  != 1) {
 
-                Log.d("Prueba 1:", ""+JornadasLiga.get(0).getNombre());
-                Log.d("Prueba 1:", ""+JornadasLiga.get(1).getNombre());
-
 
                 textLiga.setText(JornadasLiga.get(JornadasLiga.size() - 1).getNombre());
 
-            } else {
 
-                Log.d("Prueba 1:", ""+JornadasLiga.get(0).getNombre());
+            } else {
 
                 textLiga.setText(JornadasLiga.get(0).getNombre());
 

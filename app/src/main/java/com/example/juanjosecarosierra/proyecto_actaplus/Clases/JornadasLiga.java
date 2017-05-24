@@ -5,42 +5,42 @@ package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
  */
 
 public class JornadasLiga {
-    private int id_jornadas;
-    private String nombre;
-    private String idanio;
-    private String idliga;
+    private int Id_jornadas;
+    private String Nombre;
+    private String Id_anio;
+    private String Id_liga;
 
 
     public int getId_jornadas() {
-        return id_jornadas;
+        return Id_jornadas;
     }
 
     public void setId_jornadas(int id_jornadas) {
-        this.id_jornadas = id_jornadas;
+        this.Id_jornadas = Id_jornadas;
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String Nombre) {
+        this.Nombre = Id_anio;
     }
 
     public String getIdAnio() {
-        return idanio;
+        return Id_anio;
     }
 
-    public void setIdAnio(String anio) {
-        this.idanio = idanio;
+    public void setIdAnio(String Id_anio) {
+        this.Id_anio = Id_anio;
     }
 
     public String getIdLiga() {
-        return idliga;
+        return Id_liga;
     }
 
-    public void setIdLiga(String idliga) {
-        this.idliga = idliga;
+    public void setIdLiga(String Id_liga) {
+        this.Id_liga = Id_liga;
     }
 
 

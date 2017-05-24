@@ -83,9 +83,11 @@ public class JornadasAnioActivity extends AppCompatActivity {
         listJornadas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 JornadasLiga jornada = (JornadasLiga)parent.getItemAtPosition(position);
                 Api.getInstance(getApplicationContext()).setJornada(jornada);
                 startActivity(new Intent(JornadasAnioActivity.this, JornadaActivity.class));
+
             }
         });
     }

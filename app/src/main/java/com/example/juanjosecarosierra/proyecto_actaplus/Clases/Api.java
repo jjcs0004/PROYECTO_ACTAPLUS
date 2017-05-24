@@ -114,7 +114,7 @@ public class Api {
         void onError(String error);
     }
 
-    
+
     // ------------------------------------------------------------------------------------- //
 
     public void getLigas(final OnResultListener<List<Liga>> listener) {
