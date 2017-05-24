@@ -25,6 +25,7 @@ import com.example.juanjosecarosierra.proyecto_actaplus.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.String;
+import java.lang.Thread.*;
 
 public class CargaAniosActivity extends AppCompatActivity {
 
@@ -115,6 +116,9 @@ public class CargaAniosActivity extends AppCompatActivity {
     }
 
     private void cargaLigas(Anio anio){
+
+        Api.getInstance(getApplicationContext()).setJornadaConcreta(-1);
+
 
         List<Liga> listaLigasAnio = new ArrayList<>();
 

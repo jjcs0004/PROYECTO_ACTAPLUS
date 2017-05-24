@@ -77,12 +77,23 @@ public class JornadaActivity extends AppCompatActivity implements View.OnClickLi
 
         textLiga = (TextView)findViewById(R.id.jornadaLiga);
 
-        if(jornadasliga.size() > 0) {
+        if(JornadasLiga.size() > 0) {
+
+            Log.d("LOKIIIIIIIIIIII",""+  Api.getInstance(getApplicationContext()).getJornadaConcreta());
 
             if (JornadasLiga.size()  != 1) {
 
+                if(Api.getInstance(getApplicationContext()).getJornadaConcreta() == -1) {
 
-                textLiga.setText(JornadasLiga.get(JornadasLiga.size() - 1).getNombre());
+                    textLiga.setText(JornadasLiga.get(JornadasLiga.size() - 1).getNombre());
+
+                }else{
+
+                    Log.d("LOKIIIIIIIIIIII",""+  Api.getInstance(getApplicationContext()).getJornadaConcreta());
+
+                    textLiga.setText(JornadasLiga.get(Api.getInstance(getApplicationContext()).getJornadaConcreta()-1).getNombre());
+
+                }
 
 
             } else {
@@ -102,7 +113,8 @@ public class JornadaActivity extends AppCompatActivity implements View.OnClickLi
 
     private void onJornadasClick() {
         Intent intent = new Intent(JornadaActivity.this, JornadasAnioActivity.class);
-        startActivity(intent);
+        int juanjo=0;
+        startActivityForResult(intent,juanjo);
     }
 
     public void onClick(View v) {

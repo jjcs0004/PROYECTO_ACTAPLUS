@@ -70,10 +70,21 @@ public class JornadasAnioActivity extends AppCompatActivity {
 
         List<JornadasLiga> listasJornadasLiga = new ArrayList<>();
 
-        for(int i = 0 ; i < jornadasliga.size(); i++){
+        JornadasLiga jornada = new JornadasLiga();
 
-            listasJornadasLiga.add(jornadasliga.get(i)) ;
+        if(jornadasliga.size() < 1) {
 
+            String juanjo = "No existen Jornadas";
+            jornada.setNombre(juanjo);
+            listasJornadasLiga.add(jornada);
+
+        }else {
+
+            for (int i = 0; i < jornadasliga.size(); i++) {
+
+                listasJornadasLiga.add(jornadasliga.get(i));
+
+            }
         }
 
         jornadasAdapter = new JornadasListAdapter(getApplicationContext(), listasJornadasLiga);
@@ -85,7 +96,11 @@ public class JornadasAnioActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 JornadasLiga jornada = (JornadasLiga)parent.getItemAtPosition(position);
+
                 Api.getInstance(getApplicationContext()).setJornada(jornada);
+
+                Api.getInstance(getApplicationContext()).setJornadaConcreta(jornada.getId_jornadas());
+
                 startActivity(new Intent(JornadasAnioActivity.this, JornadaActivity.class));
 
             }

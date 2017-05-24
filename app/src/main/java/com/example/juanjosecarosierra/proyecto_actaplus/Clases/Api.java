@@ -44,6 +44,16 @@ public class Api {
         this.liga = liga;
     }
 
+    private int jornadaConcreta;
+
+    public int getJornadaConcreta() {
+        return jornadaConcreta;
+    }
+
+    public void setJornadaConcreta(int jornadaConcreta) {
+        this.jornadaConcreta = jornadaConcreta;
+    }
+
     private Arbitro arbitro;
 
     public Arbitro getArbitro() {
