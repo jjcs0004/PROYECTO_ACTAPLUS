@@ -1,6 +1,7 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Activity;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -99,10 +100,10 @@ public class JornadasAnioActivity extends AppCompatActivity {
 
                 Api.getInstance(getApplicationContext()).setJornada(jornada);
 
-                Api.getInstance(getApplicationContext()).setJornadaConcreta(jornada.getId_jornadas());
+                //Api.getInstance(getApplicationContext()).setJornadaConcreta(jornada.getId_jornadas());
 
-                startActivity(new Intent(JornadasAnioActivity.this, JornadaActivity.class));
-
+                setResult(Activity.RESULT_OK);
+                finish();
             }
         });
     }

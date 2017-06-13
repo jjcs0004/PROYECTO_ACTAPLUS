@@ -55,11 +55,28 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         //---------------------------------------------------------------------------------------//
 
+
         Api.getInstance(getApplicationContext()).getLigas(new Api.OnResultListener<List<Liga>>() {
             @Override
             public void onSuccess(List<Liga> data) {
                 Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
                 ligas = data;
+
+                Api.getInstance(getApplicationContext()).getAnio(new Api.OnResultListener<List<Anio>>() {
+                    @Override
+                    public void onSuccess(List<Anio> data) {
+                        Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
+                        anios = data;
+
+                        fillSpinnerAnios();
+
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
@@ -70,27 +87,19 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         //---------------------------------------------------------------------------------------//
 
-        Api.getInstance(getApplicationContext()).getAnio(new Api.OnResultListener<List<Anio>>() {
-            @Override
-            public void onSuccess(List<Anio> data) {
-                Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
-                anios = data;
 
-                fillSpinnerAnios();
-            }
 
-            @Override
-            public void onError(String error) {
-                Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
-            }
-        });
+
+
 
 
     }
 
 
     private void fillSpinnerAnios() {
+
         List<String> listaAnio = new ArrayList<String>();
+
         for(int i = 0 ; i < anios.size(); i++)
             listaAnio.add(anios.get(i).getAnio()) ;
 
@@ -108,6 +117,7 @@ public class CargaAniosActivity extends AppCompatActivity {
             // el Spinner de paises
 
             cargaLigas((Anio) parent.getItemAtPosition(pos));
+
         }
 
         public void onNothingSelected(AdapterView<?> parent) {
@@ -119,14 +129,14 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         Api.getInstance(getApplicationContext()).setJornadaConcreta(-1);
 
-
         List<Liga> listaLigasAnio = new ArrayList<>();
 
-        for(int i = 0 ; i < ligas.size(); i++){
-            if( anio.getId_anios() == ligas.get(i).getId_anio()){
-                listaLigasAnio.add(ligas.get(i)) ;
+        for (int i = 0; i < ligas.size(); i++) {
+            if (anio.getId_anios() == ligas.get(i).getId_anio()) {
+                listaLigasAnio.add(ligas.get(i));
             }
         }
+
 
         ligasAdapter = new LigasListAdapter(getApplicationContext(), listaLigasAnio);
         listLigas.setAdapter(ligasAdapter);
@@ -138,8 +148,11 @@ public class CargaAniosActivity extends AppCompatActivity {
                 Api.getInstance(getApplicationContext()).setLiga(liga);
 
 
+                Intent intent = new Intent(CargaAniosActivity.this, JornadaActivity.class);
 
-                startActivity(new Intent(CargaAniosActivity.this, JornadaActivity.class));
+               // intent.putExtra("idJornada", Api.getInstance(getApplicationContext()).getJornadaConcreta());
+
+                startActivity(intent);
             }
         });
 

@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 
@@ -19,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -70,6 +72,8 @@ public class Api {
 
     public void setJornada(JornadasLiga jornada) {this.jornada = jornada;}
 
+    private Partido partido;
+
 
 
     private Api(Context context) {
@@ -117,12 +121,21 @@ public class Api {
         return mImageLoader;
     }
 
+    public Partido getPartido() {
+        return partido;
+    }
+
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
+
     // ------------------------------------------------------------------------------------- //
 
     public interface OnResultListener<T> {
         void onSuccess(T data);
         void onError(String error);
     }
+
 
 
     // ------------------------------------------------------------------------------------- //
@@ -290,37 +303,98 @@ public class Api {
         addToRequestQueue(request);
     }
 
-    // ------------------------------------------------------------------------------------- //
-
-
-
-    // ------------------------------------------------------------------------------------- //
-
-    public void login(String user, String password, final OnResultListener<List<Arbitro>> listener) {
-
-        String url = "http://ctja.dyndns-server.com/SLIM/public/loginArbitro/" + user + "?pass=" + toMd5(password);
-
-        Log.i(getClass().getName(), url);
-
-        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+    public void getPartidosJornada(JornadasLiga jornada, final OnResultListener<List<Partido>> listener) {
+        JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com/SLIM/public/partidos/jornada/"+jornada.getId_jornadas(),new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
                 final Gson gson = new Gson();
-                List<Arbitro> arbitros = new ArrayList<>();
+                List<Partido> partidos = new ArrayList<>();
 
                 for ( int i = 0; i < response.length(); i++ ) {
                     try {
                         JSONObject arbitrosJSON = response.getJSONObject(i);
-                        Arbitro arbitro = gson.fromJson(arbitrosJSON.toString(), Arbitro.class);
-                        arbitros.add(arbitro);
+                        Partido partido = gson.fromJson(arbitrosJSON.toString(), Partido.class);
+                        partidos.add(partido);
                     }
                     catch ( JSONException ex ) {
                         listener.onError(ex.getMessage());
                     }
                 }
 
-                listener.onSuccess(arbitros);
+                listener.onSuccess(partidos);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+        addToRequestQueue(request);
+    }
+
+    public void getPartidosArbitro(final OnResultListener<List<Partido>> listener) {
+        JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com/SLIM/public/partidos/arbitro/"+getArbitro().getId_arbitros() ,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                final Gson gson = new Gson();
+                List<Partido> partidos = new ArrayList<>();
+
+                for ( int i = 0; i < response.length(); i++ ) {
+                    try {
+                        JSONObject arbitrosJSON = response.getJSONObject(i);
+                        Partido partido = gson.fromJson(arbitrosJSON.toString(), Partido.class);
+                        partidos.add(partido);
+                    }
+                    catch ( JSONException ex ) {
+                        listener.onError(ex.getMessage());
+                    }
+                }
+
+                listener.onSuccess(partidos);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+        addToRequestQueue(request);
+    }
+
+    // ------------------------------------------------------------------------------------- //
+
+
+
+    // ------------------------------------------------------------------------------------- //
+
+    public void login(String user, String password, final OnResultListener<Arbitro> listener) {
+
+        String url = "http://ctja.dyndns-server.com/SLIM/public/loginArbitro/" + user + "?pass=" + toMd5(password);
+
+        Log.i(getClass().getName(), url);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+
+            @Override
+            public void onResponse(JSONObject response) {
+
+                if ( response == null ) {
+                    listener.onError("Error response");
+                }
+                else {
+
+                    final Gson gson = new Gson();
+                    Arbitro arbitro = gson.fromJson(response.toString(), Arbitro.class);
+
+
+                    listener.onSuccess(arbitro);
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -348,6 +422,7 @@ public class Api {
 
     public void changeResult(int partidoId, int r1, int r2, final OnResultListener<Partido> listener) {
 
+        /*
         JSONObject parameters = null;
 
         try {
@@ -358,16 +433,12 @@ public class Api {
         catch (JSONException ex) {
             listener.onError(ex.getMessage());
         }
+        */
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, "http://ctja.dyndns-server.com/SLIM/public/partidos/" + partidoId, parameters, new Response.Listener<JSONObject>() {
+        StringRequest request = new StringRequest(Request.Method.POST, "http://ctja.dyndns-server.com/SLIM/public/actualizaResultado/" + partidoId + "?r1=" + r1 + "&r2=" + r2, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-
-                final Gson gson = new Gson();
-
-                Partido partido = gson.fromJson(response.toString(), Partido.class);
-
-                listener.onSuccess(partido);
+            public void onResponse(String response) {
+                listener.onSuccess( getPartido() );
             }
         }, new Response.ErrorListener() {
             @Override

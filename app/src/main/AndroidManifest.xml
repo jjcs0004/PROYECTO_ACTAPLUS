@@ -25,6 +25,8 @@
         <activity android:name=".Activity.DatosPersonalesActivity"/>
         <activity android:name=".Activity.PartidosArbitroActivity"/>
         <activity android:name=".Activity.JornadasAnioActivity"/>
+        <activity android:name=".Activity.ImagenActaActivity"/>
+        <activity android:name=".Activity.EditarPartidoActivity"/>
     </application>
 
 </manifest>

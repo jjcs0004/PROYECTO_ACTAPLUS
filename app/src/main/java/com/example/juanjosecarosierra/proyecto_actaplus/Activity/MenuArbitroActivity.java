@@ -54,12 +54,12 @@ public class MenuArbitroActivity extends AppCompatActivity {
                 //Api.getInstance(getApplicationContext()).setOpcion_menu(menu);
                 if(position == 0) {
                     startActivity(new Intent(MenuArbitroActivity.this, DatosPersonalesActivity.class));
-                }else{
-                    if(position==1){
-                        startActivity(new Intent(MenuArbitroActivity.this, PartidosArbitroActivity.class));
-                    }else{
+                }
+                else if(position==1) {
+                    startActivity(new Intent(MenuArbitroActivity.this, PartidosArbitroActivity.class));
+                }
+                else{
                         startActivity(new Intent(MenuArbitroActivity.this, PortadaActivity.class));
-                    }
                 }
             }
         });
