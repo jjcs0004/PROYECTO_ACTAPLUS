@@ -27,7 +27,7 @@ public class EditarPartidosListAdapter extends ArrayAdapter<Partido> {
     }
 
     public EditarPartidosListAdapter(Context context, List<Partido> items) {
-        super(context, R.layout.editarpartido_item, items);
+        super(context, R.layout.partido_item, items);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -36,7 +36,7 @@ public class EditarPartidosListAdapter extends ArrayAdapter<Partido> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(this.getContext())
-                    .inflate(R.layout.editarpartido_item, parent, false);
+                    .inflate(R.layout.partido_item, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.equipo1 = (TextView)convertView.findViewById(R.id.equipo1);
