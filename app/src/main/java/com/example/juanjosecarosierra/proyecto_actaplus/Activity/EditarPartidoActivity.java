@@ -59,6 +59,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         editTextName = (EditText) findViewById(R.id.editText);
         imageView  = (ImageView) findViewById(R.id.imageView);
 
+
+
         resultado1 = (EditText) findViewById(R.id.resultado1);
         resultado2 = (EditText) findViewById(R.id.resultado2);
         buttonImagen = (Button) findViewById(R.id.buttonImagen);
@@ -74,6 +76,7 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
     private void request() {
 
         partido = Api.getInstance(getApplicationContext()).getPartido();
+        fillUi();
 
     }
 
@@ -93,7 +96,7 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         }
         else if ( v == buttonGuardar ) {
 
-           // uploadImage();
+            uploadImage();
 
             int r1, r2;
 
