@@ -5,9 +5,8 @@ package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
  */
 
 public class Arbitro {
+
     private int  Id_arbitros;
-    private String Usuario;
-    private String Pass;
     private String Nombre;
     private String Apellidos;
     private String Direccion;
@@ -20,22 +19,6 @@ public class Arbitro {
 
     public void setId_arbitros(int id_arbitros) {
         Id_arbitros = id_arbitros;
-    }
-
-    public String getUsuario() {
-        return Usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        Usuario = usuario;
-    }
-
-    public String getPass() {
-        return Pass;
-    }
-
-    public void setPass(String pass) {
-        Pass = pass;
     }
 
     public String getNombre() {
@@ -59,7 +42,7 @@ public class Arbitro {
     }
 
     public void setDireccion(String direccion) {
-        Direccion = direccion;
+        direccion = direccion;
     }
 
     public String getTlf() {

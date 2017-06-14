@@ -39,16 +39,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String username = textUsername.getText().toString();
         String password = textPassword.getText().toString();
 
-        Api.getInstance(getApplicationContext()).login(username, password, new Api.OnResultListener<List<Arbitro>>() {
+        Api.getInstance(getApplicationContext()).login(username, password, new Api.OnResultListener<Arbitro>() {
             @Override
-            public void onSuccess(List<Arbitro> data) {
-                if ( data.isEmpty() ) {
+            public void onSuccess(Arbitro data) {
+                if ( data==null ) {
                     Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_LONG).show();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
 
-                    Arbitro arbitro = data.get(0);
+                    Arbitro arbitro = data;
 
                     Api.getInstance(getApplicationContext()).setArbitro(arbitro);
 

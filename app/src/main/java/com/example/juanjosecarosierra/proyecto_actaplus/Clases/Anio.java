@@ -4,12 +4,8 @@ package com.example.juanjosecarosierra.proyecto_actaplus.Clases;
  * Created by juanjosecarosierra on 25/4/17.
  */
 
-//hola juan carlos!!
 
 public class Anio {
-
-    int juanjo=0;
-    int jc=1;
 
     private int Id_anios;
     private String Anio;

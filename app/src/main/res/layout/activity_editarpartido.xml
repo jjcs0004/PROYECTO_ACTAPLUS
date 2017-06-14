@@ -10,49 +10,41 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nombre"/>
+        android:text="Resultado 1"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nombre"/>
+        android:id="@+id/resultado1"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apelllidos"/>
+        android:text="Resultado 2"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/apellidos"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Dirección"/>
-    <EditText
+        android:id="@+id/resultado2"/>
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/direccion"/>
+        android:id="@+id/buttonImagen"
+        android:text="Seleccionar imagen"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Teléfono"/>
-
-    <EditText
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/telefono"/>
+        android:layout_weight="1"
+        android:id="@+id/imageView" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CCC"/>
+
     <EditText
+        android:id="@+id/editText"
+        android:hint="Enter a Name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ccc"/>
-
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="match_parent"
