@@ -9,7 +9,7 @@ public class Arbitro {
     private int  Id_arbitros;
     private String Nombre;
     private String Apellidos;
-    private String direccion;
+    private String Direccion;
     private String Tlf;
     private String CCC;
 
@@ -38,7 +38,7 @@ public class Arbitro {
     }
 
     public String getDireccion() {
-        return direccion;
+        return Direccion;
     }
 
     public void setDireccion(String direccion) {

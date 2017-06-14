@@ -93,7 +93,7 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         }
         else if ( v == buttonGuardar ) {
 
-            uploadImage();
+           // uploadImage();
 
             int r1, r2;
 

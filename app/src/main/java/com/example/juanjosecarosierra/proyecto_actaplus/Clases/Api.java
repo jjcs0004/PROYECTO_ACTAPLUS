@@ -271,6 +271,37 @@ public class Api {
         addToRequestQueue(request);
     }
 
+    public void getArbitroConcreto(final OnResultListener<List<Arbitro>> listener) {
+        JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com/SLIM/public/arbitros/" + arbitro.getId_arbitros(),new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                final Gson gson = new Gson();
+                List<Arbitro> arbitros = new ArrayList<>();
+
+                for ( int i = 0; i < response.length(); i++ ) {
+                    try {
+                        JSONObject arbitrosJSON = response.getJSONObject(i);
+                        Arbitro arbitro = gson.fromJson(arbitrosJSON.toString(), Arbitro.class);
+                        arbitros.add(arbitro);
+                    }
+                    catch ( JSONException ex ) {
+                        listener.onError(ex.getMessage());
+                    }
+                }
+
+                listener.onSuccess(arbitros);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+        addToRequestQueue(request);
+    }
+
 
     public void getJornadasLiga(final OnResultListener<List<JornadasLiga>> listener) {
         JsonArrayRequest request = new JsonArrayRequest("http://ctja.dyndns-server.com:80/SLIM/public/jornadas/"+getLiga().getId_ligas(),new Response.Listener<JSONArray>() {
@@ -435,6 +466,7 @@ public class Api {
         }
         */
 
+
         StringRequest request = new StringRequest(Request.Method.POST, "http://ctja.dyndns-server.com/SLIM/public/actualizaResultado/" + partidoId + "?r1=" + r1 + "&r2=" + r2, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -452,7 +484,8 @@ public class Api {
 
     public void changedatos(int id, String Nombre, String apellidos, String direccion, String Tlf, String CCC, final OnResultListener<Arbitro> listener) {
 
-        StringRequest request = new StringRequest(Request.Method.POST, "http://ctja.dyndns-server.com/SLIM/public/actualizaArbitro/"+ id +"?nombre="+Nombre+"?apellidos="+apellidos+"?direccion="+direccion+"?tlf="+Tlf+"?CCC="+ CCC, new Response.Listener<String>() {
+        // http://ctja.dyndns-server.com/SLIM/public/actualizaArbitro/1?nombre=Juan Carlos?apellidos=Gonzalez Ruiz?direccion=Avenida de mi casa?tlf=999444111?CCC=
+        StringRequest request = new StringRequest(Request.Method.POST, "http://ctja.dyndns-server.com/SLIM/public/actualizaArbitro/"+ id +"?nombre="+ Nombre + "&apellidos=" + apellidos + "&direccion="+direccion+"&tlf="+Tlf+"&CCC="+ CCC, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 listener.onSuccess( getArbitro() );

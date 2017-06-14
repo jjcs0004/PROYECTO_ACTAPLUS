@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.List;
 
+import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Anio;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Api;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Arbitro;
+import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
 
@@ -26,6 +28,8 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
     private Button buttonGuardar;
 
     private Arbitro arbitro;
+
+    List<Arbitro> arbitros;
 
 
     private EditText nombre, apellidos, telefono, direccion, ccc;
@@ -53,18 +57,32 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
 
     private void request() {
 
-        arbitro = Api.getInstance(getApplicationContext()).getArbitro();
-        fillUi();
+        //arbitro = Api.getInstance(getApplicationContext()).getArbitro();
+        Api.getInstance(getApplicationContext()).getArbitroConcreto(new Api.OnResultListener<List<Arbitro>>() {
+            @Override
+            public void onSuccess(List<Arbitro> data) {
+                Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
+                arbitros = data;
+                fillUi();
+
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(getApplicationContext(), "ERROR: " + error, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 
     private void fillUi() {
 
-        nombre.setText( arbitro.getNombre() + "" );
-        apellidos.setText( arbitro.getApellidos() + "" );
-        direccion.setText( arbitro.getDireccion() + "" );
-        telefono.setText( arbitro.getTlf() + "" );
-        ccc.setText( arbitro.getCCC() + "" );
+        nombre.setText( arbitros.get(0).getNombre() );
+        apellidos.setText( arbitros.get(0).getApellidos()  );
+        direccion.setText( arbitros.get(0).getDireccion()  );
+        telefono.setText( arbitros.get(0).getTlf() );
+        ccc.setText( arbitros.get(0).getCCC());
 
     }
 
@@ -72,7 +90,6 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
 
         if ( v == buttonGuardar ) {
-
 
             String Nombre,  Apellidos,  Direccion,  Tlf,  CCC;
 
@@ -83,7 +100,7 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
             CCC=ccc.getText().toString();
 
 
-            Api.getInstance(getApplicationContext()).changedatos(arbitro.getId_arbitros(), Nombre, Apellidos, Direccion, Tlf, CCC, new Api.OnResultListener<Arbitro>() {
+            Api.getInstance(getApplicationContext()).changedatos(arbitros.get(0).getId_arbitros(), Nombre, Apellidos, Direccion, Tlf, CCC, new Api.OnResultListener<Arbitro>() {
                 @Override
                 public void onSuccess(Arbitro data) {
                     finish();
@@ -93,6 +110,7 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
                 public void onError(String error) {
                     finish();
                 }
+
             });
         }
 
