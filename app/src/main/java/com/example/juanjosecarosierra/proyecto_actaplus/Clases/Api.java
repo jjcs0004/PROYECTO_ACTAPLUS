@@ -450,6 +450,23 @@ public class Api {
         addToRequestQueue(request);
     }
 
+    public void changedatos(int id, String Nombre, String apellidos, String direccion, String Tlf, String CCC, final OnResultListener<Arbitro> listener) {
+
+        StringRequest request = new StringRequest(Request.Method.POST, "http://ctja.dyndns-server.com/SLIM/public/actualizaArbitro/"+ id +"?nombre="+Nombre+"?apellidos="+apellidos+"?direccion="+direccion+"?tlf="+Tlf+"?CCC="+ CCC, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                listener.onSuccess( getArbitro() );
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+        addToRequestQueue(request);
+    }
+
 }
 
 

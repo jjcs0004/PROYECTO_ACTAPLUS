@@ -74,7 +74,7 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
     private void request() {
 
         partido = Api.getInstance(getApplicationContext()).getPartido();
-        fillUi();
+
     }
 
     private void fillUi() {
@@ -83,6 +83,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         resultado2.setText( partido.getResultado2() + "" );
 
     }
+
+
 
     @Override
     public void onClick(View v) {
