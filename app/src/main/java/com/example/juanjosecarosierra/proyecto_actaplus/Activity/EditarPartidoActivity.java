@@ -40,15 +40,19 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
 
     private Partido partido;
 
-    private ImageView imageView;
+    //private ImageView imageView;
+    private NetworkImageView imageView;
+
     private EditText editTextName;
     private Bitmap bitmap;
 
     private int PICK_IMAGE_REQUEST = 1;
-    private String UPLOAD_URL ="http://ctja.dyndns-server.com/SLIM/public/subeActa";
+    private String UPLOAD_URL ="http://ctja.dyndns-server.com/SLIM/public/subeActa/";
 
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
+
+    private NetworkImageView imagenActa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
 
 
         editTextName = (EditText) findViewById(R.id.editText);
-        imageView  = (ImageView) findViewById(R.id.imageView);
+        imageView  = (NetworkImageView) findViewById(R.id.imageView);
 
 
 
@@ -69,6 +73,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         buttonImagen.setOnClickListener(this);
         buttonGuardar.setOnClickListener(this);
 
+       // imagenActa  = (NetworkImageView) findViewById(R.id.imagenActa);
+
         request();
     }
 
@@ -76,6 +82,9 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
     private void request() {
 
         partido = Api.getInstance(getApplicationContext()).getPartido();
+
+        imageView.setImageUrl("http://ctja.dyndns-server.com/SLIM/public/" + partido.getActa(), Api.getInstance(getApplicationContext()).getImageLoader());
+
         fillUi();
 
     }
@@ -87,8 +96,6 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
 
     }
 
-
-
     @Override
     public void onClick(View v) {
         if ( v == buttonImagen ) {
@@ -98,25 +105,35 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
 
             uploadImage();
 
-            int r1, r2;
+            uploadResultado();
 
-            r1 = Integer.valueOf(resultado1.getText().toString());
-            r2 = Integer.valueOf(resultado2.getText().toString());
 
-            Api.getInstance(getApplicationContext()).changeResult(partido.getId_partidos(), r1, r2, new Api.OnResultListener<Partido>() {
-                @Override
-                public void onSuccess(Partido data) {
-                    finish();
-                }
-
-                @Override
-                public void onError(String error) {
-                    finish();
-                }
-            });
         }
 
     }
+
+    private void uploadResultado(){
+
+        int r1, r2;
+
+        r1 = Integer.valueOf(resultado1.getText().toString());
+        r2 = Integer.valueOf(resultado2.getText().toString());
+
+        Api.getInstance(getApplicationContext()).changeResult(partido.getId_partidos(), r1, r2, new Api.OnResultListener<Partido>() {
+            @Override
+            public void onSuccess(Partido data) {
+                finish();
+            }
+
+            @Override
+            public void onError(String error) {
+                finish();
+            }
+        });
+
+
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -152,7 +169,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
     private void uploadImage(){
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL + partido.getId_partidos(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -172,30 +190,25 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
                         Toast.makeText(EditarPartidoActivity.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
                     }
                 }){
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 //Converting Bitmap to String
                 String image = getStringImage(bitmap);
-
                 //Getting Image Name
                 String name = editTextName.getText().toString().trim();
-
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
-
                 //Adding parameters
                 params.put(KEY_IMAGE, image);
                 params.put(KEY_NAME, name);
-
                 //returning parameters
                 return params;
             }
         };
-
         //Creating a Request Queue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-
         //Adding request to the queue
         requestQueue.add(stringRequest);
     }

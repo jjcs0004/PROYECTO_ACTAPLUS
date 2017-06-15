@@ -1,6 +1,7 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Activity;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void onLoginClick(){
+
+
+       // final ProgressDialog loading = ProgressDialog.show(this,"Logeando...","Please wait...",false,false);
 
         String username = textUsername.getText().toString();
         String password = textPassword.getText().toString();
