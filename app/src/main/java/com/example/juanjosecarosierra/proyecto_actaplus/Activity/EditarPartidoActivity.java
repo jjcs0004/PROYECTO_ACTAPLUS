@@ -101,6 +101,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    //muestro la imagen que hay actualmente guardada
+
     private void request() {
 
         partido = Api.getInstance(getApplicationContext()).getPartido();
@@ -110,6 +112,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         fillUi();
 
     }
+
+    //cojo resultados que he puesto
 
     private void fillUi() {
 
@@ -125,7 +129,9 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         }
         else if ( v == buttonGuardar ) {
 
-            uploadImage();
+            //funcion subida de imagen comentada, actualmente solo guarda el resultado
+
+            //uploadImage();
 
             uploadResultado();
 
@@ -133,6 +139,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         }
 
     }
+
+    //actualizo resultados
 
     private void uploadResultado(){
 
@@ -156,6 +164,8 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    //Obtengo Bitmap de la imagen seleccionada y la pongo el el imageview
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,12 +183,16 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    //selecciono archivo
+
     private void showFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
+
+    //no lo uso, porque cuando desarrrolle uploadimage()  en el proceso de subida tengo que hacerlo
 
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -188,93 +202,12 @@ public class EditarPartidoActivity extends AppCompatActivity implements View.OnC
         return encodedImage;
     }
 
+    //funcion subida de imagen cuando pulsa guardar
+
     private void uploadImage(){
 
-        // loading or check internet connection or something...
-        // ... then
-        String url = "http://ctja.dyndns-server.com/SLIM/public/subeActa/";
-        VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url, new Response.Listener<NetworkResponse>() {
-            @Override
-            public void onResponse(NetworkResponse response) {
-                String resultResponse = new String(response.data);
-                try {
-                    JSONObject result = new JSONObject(resultResponse);
-                    String status = result.getString("status");
-                    String message = result.getString("message");
 
-                    if (status.equals(Constant.REQUEST_SUCCESS)) {
-                        // tell everybody you have succed upload image and post strings
-                        Log.i("Messsage", message);
-                    } else {
-                        Log.i("Unexpected", message);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                String errorMessage = "Unknown error";
-                if (networkResponse == null) {
-                    if (error.getClass().equals(TimeoutError.class)) {
-                        errorMessage = "Request timeout";
-                    } else if (error.getClass().equals(NoConnectionError.class)) {
-                        errorMessage = "Failed to connect server";
-                    }
-                } else {
-                    String result = new String(networkResponse.data);
-                    try {
-                        JSONObject response = new JSONObject(result);
-                        String status = response.getString("status");
-                        String message = response.getString("message");
 
-                        Log.e("Error Status", status);
-                        Log.e("Error Message", message);
-
-                        if (networkResponse.statusCode == 404) {
-                            errorMessage = "Resource not found";
-                        } else if (networkResponse.statusCode == 401) {
-                            errorMessage = message+" Please login again";
-                        } else if (networkResponse.statusCode == 400) {
-                            errorMessage = message+ " Check your inputs";
-                        } else if (networkResponse.statusCode == 500) {
-                            errorMessage = message+" Something is getting wrong";
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                Log.i("Error", errorMessage);
-                error.printStackTrace();
-            }
-        }) {
-            /*
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("name", mNameInput.getText().toString());
-                params.put("location", mLocationInput.getText().toString());
-                params.put("about", mAvatarInput.getText().toString());
-                params.put("contact", mContactInput.getText().toString());
-                return params;
-            }
-            */
-
-            @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                // file name could found file base or direct access from real path
-                // for now just get bitmap data from ImageView
-                params.put("", new DataPart("file_avatar.jpg", AppHelper.getFileDataFromDrawable(getBaseContext(), imageView.getDrawable()), "image/jpeg"));
-
-                return params;
-            }
-        };
-
-        VolleySingleton.getInstance(getBaseContext()).addToRequestQueue(multipartRequest);
-    }
 
 
     }
