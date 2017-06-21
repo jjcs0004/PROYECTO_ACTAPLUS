@@ -33,11 +33,34 @@
         android:text="Seleccionar imagen"
         />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/imageView" />
+        android:layout_height="wrap_content">
+
+        <!--
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/imagenActa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+            <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+
+        -->
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+    </RelativeLayout>
 
 
     <EditText
