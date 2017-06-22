@@ -9,6 +9,7 @@
     android:padding="16dp">
 
     <TextView
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -16,18 +17,22 @@
         android:id="@+id/equipo1"/>
 
     <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="0 - 0"
+        android:id="@+id/resultado"/>
+
+    <TextView
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:text="Eq2"
         android:id="@+id/equipo2"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="0 - 0"
-        android:id="@+id/resultado"/>
+
 
     <ImageView
         android:layout_width="32dp"

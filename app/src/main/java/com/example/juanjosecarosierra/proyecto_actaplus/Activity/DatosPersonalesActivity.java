@@ -1,21 +1,17 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Activity;
 
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.List;
 
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Anio;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Api;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Arbitro;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
 
 import java.util.List;
@@ -28,6 +24,9 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
     private Button buttonGuardar;
 
     private Arbitro arbitro;
+
+    String carpetaFuente = "fonts/Roboto-Italic.ttf";
+
 
     List<Arbitro> arbitros;
 
@@ -46,13 +45,28 @@ public class DatosPersonalesActivity extends AppCompatActivity implements View.O
         direccion = (EditText) findViewById(R.id.direccion);
         ccc = (EditText) findViewById(R.id.ccc);
 
+
+        // Cargamos la fuente
+        Typeface fuente = Typeface.createFromAsset(getAssets(), carpetaFuente);
+
+        // Aplicamos la fuente
+        nombre.setTypeface(fuente);
+
+        direccion.setTypeface(fuente);
+
+
+        apellidos.setTypeface(fuente);
+
+        telefono.setTypeface(fuente);
+
+        ccc.setTypeface(fuente);
+
+
         buttonGuardar = (Button) findViewById(R.id.buttonGuardar);
 
         buttonGuardar.setOnClickListener(this);
 
-
         request();
-
     }
 
     private void request() {

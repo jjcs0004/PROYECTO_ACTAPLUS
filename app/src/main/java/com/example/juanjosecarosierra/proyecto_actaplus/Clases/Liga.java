@@ -37,7 +37,7 @@ public class Liga {
 
     @Override
     public String toString() {
-        return this.Nombre;
+        return this.Nombre +" - "+ this.getId_anio();
     }
 }
 

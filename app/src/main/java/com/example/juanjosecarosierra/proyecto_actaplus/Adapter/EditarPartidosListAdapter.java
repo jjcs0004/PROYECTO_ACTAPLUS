@@ -1,7 +1,7 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatSpinner;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditarPartidosListAdapter extends ArrayAdapter<Partido> {
@@ -59,6 +58,18 @@ public class EditarPartidosListAdapter extends ArrayAdapter<Partido> {
 
             viewHolder.resultado1.setText(item.getResultado1());
             viewHolder.resultado2.setText(item.getResultado2());
+
+            viewHolder.equipo1.setTextColor(Color.WHITE);
+            viewHolder.equipo1.setTextSize(25);
+
+            viewHolder.equipo2.setTextColor(Color.WHITE);
+            viewHolder.equipo2.setTextSize(25);
+
+            viewHolder.resultado1.setTextColor(Color.WHITE);
+            viewHolder.resultado1.setTextSize(25);
+
+            viewHolder.resultado2.setTextColor(Color.WHITE);
+            viewHolder.resultado2.setTextSize(25);
 
         }
 

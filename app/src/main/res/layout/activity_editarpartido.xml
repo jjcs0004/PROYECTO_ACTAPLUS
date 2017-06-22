@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -8,15 +12,18 @@
     >
 
     <TextView
+        style="@style/Textos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Resultado 1"/>
     <EditText
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resultado1"/>
 
     <TextView
+        style="@style/Textos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Resultado 2"/>
@@ -76,3 +83,5 @@
         android:text="Guardar"/>
 
 </LinearLayout>
+    </ScrollView>
+

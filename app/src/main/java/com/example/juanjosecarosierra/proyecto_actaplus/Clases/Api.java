@@ -20,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -137,6 +136,44 @@ public class Api {
     }
 
 
+
+    //final OnResultListener<Liga> listener
+    public void getLigaActual(final OnResultListener<List<Liga>> listener) {
+
+
+        String url = "http://ctja.dyndns-server.com/SLIM/public/ligaActual";
+
+        JsonArrayRequest request = new JsonArrayRequest(url,new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                final Gson gson = new Gson();
+                List<Liga> ligas = new ArrayList<>();
+
+                for ( int i = 0; i < response.length(); i++ ) {
+                    try {
+                        JSONObject ligasJson = response.getJSONObject(i);
+                        Liga liga = gson.fromJson(ligasJson.toString(), Liga.class);
+                        ligas.add(liga);
+                    }
+                    catch ( JSONException ex ) {
+                        listener.onError(ex.getMessage());
+                    }
+                }
+
+                listener.onSuccess(ligas);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.onError(error.getMessage());
+            }
+        });
+
+        addToRequestQueue(request);
+
+
+    }
 
     // ------------------------------------------------------------------------------------- //
 

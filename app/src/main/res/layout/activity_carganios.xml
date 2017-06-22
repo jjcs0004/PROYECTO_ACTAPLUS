@@ -1,31 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context="com.example.juanjosecarosierra.proyecto_actaplus.Activity.CargaAniosActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
 
-    <LinearLayout
-        android:layout_width="336dp"
-        android:layout_height="463dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+    android:weightSum="1">
 
-        <Spinner android:id="@+id/spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android" />
+    <ImageView android:src="@drawable/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="72dp"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.53" />
 
-        <ListView
-            android:id="@+id/ligas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <Spinner
 
-    </LinearLayout>
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/spinner"
+        android:hint="Año seleccionado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SpinerStyle"
+         />
+
+    <ListView
+        android:id="@+id/ligas"
+        style="@style/ListView"
+        android:layout_width="wrap_content"
+        android:layout_height="255dp"
+        android:layout_gravity="top"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="true" />
+
+    
+</LinearLayout>
+</ScrollView>
 
     <!--
 
@@ -35,4 +54,3 @@
 
         -->
 
-</android.support.constraint.ConstraintLayout>

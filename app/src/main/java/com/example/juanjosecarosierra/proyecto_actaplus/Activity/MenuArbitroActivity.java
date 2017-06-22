@@ -59,7 +59,7 @@ public class MenuArbitroActivity extends AppCompatActivity {
                     startActivity(new Intent(MenuArbitroActivity.this, PartidosArbitroActivity.class));
                 }
                 else{
-                        startActivity(new Intent(MenuArbitroActivity.this, PortadaActivity.class));
+                        startActivity(new Intent(MenuArbitroActivity.this, CargaAniosActivity.class));
                 }
             }
         });

@@ -1,6 +1,7 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.JornadasLiga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
 
@@ -37,8 +37,20 @@ public class JornadaPartidosListAdapter extends ArrayAdapter<Partido> {
 
             viewHolder = new ViewHolder();
             viewHolder.equipo1 = (TextView)convertView.findViewById(R.id.equipo1);
-            viewHolder.equipo2 = (TextView)convertView.findViewById(R.id.equipo2);
             viewHolder.resultado = (TextView)convertView.findViewById(R.id.resultado);
+            viewHolder.equipo2 = (TextView)convertView.findViewById(R.id.equipo2);
+
+            viewHolder.equipo1.setTextColor(Color.WHITE);
+            viewHolder.equipo1.setTextSize(25);
+
+
+            viewHolder.resultado.setTextColor(Color.WHITE);
+            viewHolder.resultado.setTextSize(25);
+
+
+            viewHolder.equipo2.setTextColor(Color.WHITE);
+            viewHolder.equipo2.setTextSize(25);
+
             viewHolder.imagen = (ImageView) convertView.findViewById(R.id.imagen);
 
             convertView.setTag(viewHolder);
@@ -52,8 +64,9 @@ public class JornadaPartidosListAdapter extends ArrayAdapter<Partido> {
             // My layout has only one TextView
             // do whatever you want with your string and long
             viewHolder.equipo1.setText( item.getId_equipo1() );
-            viewHolder.equipo2.setText( item.getId_equipo2() );
             viewHolder.resultado.setText( item.getResultado1() + " - " + item.getResultado2() );
+            viewHolder.equipo2.setText( item.getId_equipo2() );
+
         }
 
         return convertView;

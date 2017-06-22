@@ -15,21 +15,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.PortadaActivity">
+        <activity android:name=".Activity.SplashScreen"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.CargaAniosActivity"/>
-        <activity android:name=".Activity.LoginActivity"/>
-        <activity android:name=".Activity.JornadaActivity"/>
-        <activity android:name=".Activity.MenuArbitroActivity"/>
-        <activity android:name=".Activity.DatosPersonalesActivity"/>
-        <activity android:name=".Activity.PartidosArbitroActivity"/>
-        <activity android:name=".Activity.JornadasAnioActivity"/>
-        <activity android:name=".Activity.ImagenActaActivity"/>
-        <activity android:name=".Activity.EditarPartidoActivity"/>
+        <activity android:name=".Activity.PortadaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.CargaAniosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.JornadaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.MenuArbitroActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.DatosPersonalesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.PartidosArbitroActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.JornadasAnioActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.ImagenActaActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.EditarPartidoActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

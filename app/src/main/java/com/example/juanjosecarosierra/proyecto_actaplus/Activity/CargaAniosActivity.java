@@ -1,13 +1,20 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,20 +23,17 @@ import android.widget.Toast;
 import com.example.juanjosecarosierra.proyecto_actaplus.Adapter.LigasListAdapter;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Anio;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Api;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Arbitro;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.JornadasLiga;
 import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Liga;
-import com.example.juanjosecarosierra.proyecto_actaplus.Clases.Partido;
 import com.example.juanjosecarosierra.proyecto_actaplus.R;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.lang.String;
-import java.lang.Thread.*;
 
 public class CargaAniosActivity extends AppCompatActivity {
-
     private Spinner spProvincias, spLocalidades;
+
 
 
     List<Liga> ligas;
@@ -45,8 +49,39 @@ public class CargaAniosActivity extends AppCompatActivity {
 
         listLigas = (ListView)findViewById(R.id.ligas);
 
+
+
+
+
+
         request();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.liga_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if ( item.getItemId() == R.id.buttonLogin ) {
+            onLoginClick();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void onLoginClick(){
+        // go to login
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+        //finish();
     }
 
     //---------------------------------------------------------------------------------------//
@@ -56,6 +91,7 @@ public class CargaAniosActivity extends AppCompatActivity {
         //---------------------------------------------------------------------------------------//
 
 
+        //Api.getInstance(getApplicationContext()).getLigas(new Api.OnResultListener<List<Liga>>() {
         Api.getInstance(getApplicationContext()).getLigas(new Api.OnResultListener<List<Liga>>() {
             @Override
             public void onSuccess(List<Liga> data) {
@@ -68,7 +104,9 @@ public class CargaAniosActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
                         anios = data;
 
+
                         fillSpinnerAnios();
+
 
                     }
 
@@ -104,9 +142,17 @@ public class CargaAniosActivity extends AppCompatActivity {
             listaAnio.add(anios.get(i).getAnio()) ;
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setAdapter(new ArrayAdapter<Anio>(this, android.R.layout.simple_spinner_item, anios));
+        //ArrayAdapter adapter = new ArrayAdapter<Anio>(this, android.R.layout.simple_spinner_item, anios);
+        ArrayAdapter adapter = new ArrayAdapter<Anio>(this, R.layout.spinner_dropdown_item, anios);
+        //adapter = ArrayAdapter.createFromResource(this, anios, R.layout.spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        //spinner.setDropDownViewResource(R.layout.spinner_dropdown_item);
+
         spinner.setOnItemSelectedListener(new SpinnerListener());
     }
+
+
 
     public class SpinnerListener implements AdapterView.OnItemSelectedListener {
 
@@ -125,6 +171,7 @@ public class CargaAniosActivity extends AppCompatActivity {
         }
     }
 
+
     private void cargaLigas(Anio anio){
 
         Api.getInstance(getApplicationContext()).setJornadaConcreta(-1);
@@ -139,6 +186,10 @@ public class CargaAniosActivity extends AppCompatActivity {
 
 
         ligasAdapter = new LigasListAdapter(getApplicationContext(), listaLigasAnio);
+
+
+
+
         listLigas.setAdapter(ligasAdapter);
 
         listLigas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,11 +198,8 @@ public class CargaAniosActivity extends AppCompatActivity {
                 Liga liga = (Liga)parent.getItemAtPosition(position);
                 Api.getInstance(getApplicationContext()).setLiga(liga);
 
-
                 Intent intent = new Intent(CargaAniosActivity.this, JornadaActivity.class);
-
                // intent.putExtra("idJornada", Api.getInstance(getApplicationContext()).getJornadaConcreta());
-
                 startActivity(intent);
             }
         });

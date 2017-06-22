@@ -1,6 +1,7 @@
 package com.example.juanjosecarosierra.proyecto_actaplus.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,13 @@ public class LigasListAdapter extends ArrayAdapter<Liga> {
             convertView = LayoutInflater.from(this.getContext())
                     .inflate(R.layout.liga_item, parent, false);
 
+            //View view = super.getView(position, convertView, parent);
             viewHolder = new ViewHolder();
             viewHolder.text = (TextView)convertView.findViewById(R.id.nombreLiga);
+
+            viewHolder.text.setTextColor(Color.WHITE);
+            viewHolder.text.setTextSize(30);
+            viewHolder.text.setBackgroundColor(999999);
 
             convertView.setTag(viewHolder);
         }
